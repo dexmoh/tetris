@@ -1,6 +1,8 @@
 #include "grid.hpp"
 
-Grid::Grid() : _rows(20), _cols(10), _cell_size(30) {
+#include "blocks.hpp"
+
+Grid::Grid() : _rows(20), _cols(10), _cell_size(32) {
     // Initialize grid.
     _grid = new uint8_t*[_rows];
     for (int i = 0; i < _rows; i++) {
@@ -8,6 +10,9 @@ Grid::Grid() : _rows(20), _cols(10), _cell_size(30) {
         for (int j = 0; j < _cols; j++)
             _grid[i][j] = 0;
     }
+
+    // Load block textures.
+    _block_sprites = LoadTexture("res/blocks.png");
 }
 
 Grid::~Grid() {
@@ -21,17 +26,43 @@ Grid::~Grid() {
     }
 }
 
-std::string Grid::to_string() const {
-    auto out_str = std::string("");
-
-    // Convert the grid to a string.
+void Grid::draw() const {
     for (int i = 0; i < _rows; i++) {
         for (int j = 0; j < _cols; j++) {
-            out_str += std::to_string(_grid[i][j]);
-            out_str += ' ';
+            DrawTexturePro(
+                _block_sprites,
+                { (float)_grid[i][j] * 32, 0, 32, 32 },
+                { (float)_cell_size * j, (float)_cell_size * i, (float)_cell_size, (float)_cell_size },
+                { 0, 0 }, 0.0f, WHITE
+            );
         }
-        out_str += '\n';
     }
 
-    return out_str;
+    // Testing
+    Block block;
+    switch (rand() % 7) {
+    case 0:
+        block = OBlock();
+        break;
+    case 1:
+        block = IBlock();
+        break;
+    case 2:
+        block = TBlock();
+        break;
+    case 3:
+        block = LBlock();
+        break;
+    case 4:
+        block = JBlock();
+        break;
+    case 5:
+        block = SBlock();
+        break;
+    case 6:
+        block = ZBlock();
+        break;
+    }
+    
+    block.draw(_block_sprites);
 }
