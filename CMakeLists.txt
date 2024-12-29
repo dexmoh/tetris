@@ -33,7 +33,6 @@ target_sources(${EXECUTABLE_NAME} PRIVATE
     ${PROJECT_SOURCE_DIR}/src/game.cpp
     ${PROJECT_SOURCE_DIR}/src/grid.cpp
     ${PROJECT_SOURCE_DIR}/src/blocks.cpp
-    ${PROJECT_SOURCE_DIR}/src/position.cpp
 )
 
 target_include_directories(${EXECUTABLE_NAME} PRIVATE

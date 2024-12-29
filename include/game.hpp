@@ -1,21 +1,26 @@
 #pragma once
 
-#include "grid.hpp"
+#include "includes.hpp"
 #include "blocks.hpp"
+#include "grid.hpp"
 
 class Game {
 public:
     Game();
 
-    void run();
+    void draw() const;
+    void handle_input();
+
+private:
+    std::vector<Block> _get_new_blocks() const;
+    Block _get_rand_block();
 
 private:
     Grid _grid;
     std::vector<Block> _blocks;
-    Block& _current_block;
-    Block& _next_block;
+    Block _current_block;
+    Block _next_block;
 
-    void _draw() const;
-    std::vector<Block> _get_new_blocks() const;
+    Texture2D _block_sprites;
 
 };

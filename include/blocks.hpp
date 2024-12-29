@@ -18,12 +18,17 @@ public:
     };
 
     Block();
+    
     void draw(const Texture2D& sprites) const;
+    void move(Position offset);
+    void rotate();
+    
     Type get_type() const;
 
 protected:
     Type _type;
     uint8_t _cell_size;
+    Position _offset;
 
     // We'll save different rotation states in a map.
     RotationState _rot_state;

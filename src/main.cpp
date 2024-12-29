@@ -12,7 +12,22 @@ int main(void) {
     HideCursor();
 
     auto game = Game();
-    game.run();
+
+    // Game loop.
+    while (!WindowShouldClose()) {
+        // 1. Event handling.
+        game.handle_input();
+
+        // 2. Update game logic.
+
+        // 3. Rendering.
+        BeginDrawing();
+        ClearBackground(BLACK);
+
+        game.draw();
+
+        EndDrawing();
+    }
 
     CloseWindow();
     return 0;
