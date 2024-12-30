@@ -24,7 +24,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
       
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout
@@ -32,11 +32,6 @@ jobs:
 
     - name: Set up Emscripten
       uses: mymindstorm/setup-emsdk@v14
-
-    - name: Install X11 Libraries
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libx11-dev
 
     - name: Build with CMake
       run: |
