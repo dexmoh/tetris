@@ -1,6 +1,8 @@
 #include "game.hpp"
 
-Game::Game() {
+Game::Game()
+    : _tick_interval(0.3), _time_since_last_tick(GetTime())
+{
     // Create a new seed for the random gen.
     srand(time(0));
 
@@ -18,6 +20,37 @@ Game::Game() {
 void Game::draw() const {
     _grid.draw(_block_sprites);
     _current_block.draw(_block_sprites);
+}
+
+void Game::handle_logic() {
+    double current_time = GetTime();
+    if (current_time > _time_since_last_tick + _tick_interval) {
+        _time_since_last_tick = current_time;
+        _current_block.move({1, 0});
+
+        // Testing.
+        bool collision = false;
+        std::vector<Position> positions = _current_block.get_positions();
+        for (const auto& pos : positions) {
+            if (pos.get_row() >= Grid::S_ROWS - 1) {
+                collision = true;
+                break;
+            }
+        }
+
+        // This is so cursed.
+        Block future_block = _current_block;
+        future_block.move({1, 0});
+
+        if (_grid.collides(future_block))
+            collision = true;
+
+        if (collision) {
+            _grid.set_block(_current_block);
+            _current_block = _next_block;
+            _next_block = _get_rand_block();
+        }
+    }
 }
 
 void Game::handle_input() {

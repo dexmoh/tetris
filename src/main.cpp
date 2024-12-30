@@ -15,12 +15,13 @@ int main(void) {
 
     // Game loop.
     while (!WindowShouldClose()) {
-        // 1. Event handling.
+        // Event handling.
         game.handle_input();
 
-        // 2. Update game logic.
+        // Game logic.
+        game.handle_logic();
 
-        // 3. Rendering.
+        // Rendering.
         BeginDrawing();
         ClearBackground(BLACK);
 

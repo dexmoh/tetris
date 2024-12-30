@@ -9,6 +9,7 @@ public:
     Game();
 
     void draw() const;
+    void handle_logic();
     void handle_input();
 
 private:
@@ -20,6 +21,9 @@ private:
     std::vector<Block> _blocks;
     Block _current_block;
     Block _next_block;
+
+    double _tick_interval;
+    double _time_since_last_tick;
 
     Texture2D _block_sprites;
 

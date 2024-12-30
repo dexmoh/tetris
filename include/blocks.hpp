@@ -24,6 +24,7 @@ public:
     void rotate();
     
     Type get_type() const;
+    std::vector<Position> get_positions() const;
 
 protected:
     Type _type;

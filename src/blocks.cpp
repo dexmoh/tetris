@@ -45,7 +45,6 @@ void Block::move(Position offset) {
 }
 
 void Block::rotate() {
-    // TODO: Check if the block is still inside the grid after rotation.
     RotationState original_state = _rot_state;
 
     switch (_rot_state)
@@ -66,10 +65,41 @@ void Block::rotate() {
         _rot_state = RotationState::NORTH;
         break;
     }
+
+    // Check if the block is still inside the grid after rotation.
+    for (const auto& pos : _cells.at(_rot_state)) {
+        int8_t column = pos.get_column() + _offset.get_column();
+        if (column < 0 || column >= Grid::S_COLUMNS)  {
+            _rot_state = original_state;
+            break;
+        }
+
+        int8_t row = pos.get_row() + _offset.get_row();
+        if (row < 0 || row >= Grid::S_ROWS) {
+            _rot_state = original_state;
+            break;
+        }
+    }
 }
 
 Block::Type Block::get_type() const {
     return _type;
+}
+
+// Get the positions of the block with the offset applied.
+std::vector<Position> Block::get_positions() const {
+    // Copy the current positions vector.
+    std::vector<Position> positions = _cells.at(_rot_state);
+
+    // Add the offsets.
+    for (auto& pos : positions) {
+        int8_t new_row = pos.get_row() + _offset.get_row();
+        int8_t new_column = pos.get_column() + _offset.get_column();
+
+        pos = { new_row, new_column };
+    }
+
+    return positions;
 }
 
 /* ### Derived Block Classes ### */
