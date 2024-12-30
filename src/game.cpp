@@ -7,7 +7,7 @@ Game::Game()
     srand(time(0));
 
     // Load block textures.
-    _block_sprites = LoadTexture("res/blocks.png");
+    _block_sprites = LoadTexture("blocks.png");
     
     // Init grid and blocks list.
     _grid = Grid();

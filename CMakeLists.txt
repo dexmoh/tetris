@@ -51,7 +51,7 @@ if (EMSCRIPTEN)
     set(CMAKE_EXECUTABLE_SUFFIX ".html") # This line is used to set your executable to build with the emscripten html template so that you can directly open it.
     
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/web
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/
     )
 endif ()
 
