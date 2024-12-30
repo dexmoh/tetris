@@ -31,7 +31,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Emscripten
-      uses: tpoechtrager/emscripten-action@v2
+      uses: mymindstorm/setup-emsdk@v14
 
     - name: Build with CMake
       run: |
